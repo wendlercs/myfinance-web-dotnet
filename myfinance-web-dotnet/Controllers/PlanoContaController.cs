@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using myfinance_web_dotnet.Models;
+using myfinance_web_dotnet_domain.Entities;
 using myfinance_web_dotnet_service;
 using myfinance_web_dotnet_service.Interfaces;
 
@@ -45,6 +46,58 @@ namespace myfinance_web_dotnet.Controllers
             ViewBag.listaPlanoConta = listaPlanoContaModel;
 
             return View();
+        }
+
+        //Update route
+        [HttpGet]
+        [Route("Cadastrar")]
+        [Route("Cadastrar/{Id}")]
+        public IActionResult Cadastrar(int? Id)
+        {
+            if(Id != null)
+            {
+                var planoConta = _planoContaService.RetornarRegistro((int)Id);
+
+                var planoContaModel = new PlanoContaModel()
+                {
+                    Id = planoConta.Id,
+                    Descricao = planoConta.Descricao,
+                    Tipo = planoConta.Tipo
+                };
+
+                return View(planoContaModel);
+            }
+            else
+            {
+                return View();
+            }
+        }
+        //Create route
+        [HttpPost]
+        [Route("Cadastrar")]
+        [Route("Cadastrar/{Id}")]
+        public IActionResult Cadastrar(PlanoContaModel model)
+        {
+            var planoConta = new PlanoConta()
+            {
+                Id = model.Id,
+                Descricao = model.Descricao,
+                Tipo = model.Tipo
+            };
+
+            _planoContaService.Cadastrar(planoConta);
+            
+            return RedirectToAction ("Index");
+        }
+
+        //Delete route
+        [HttpGet]
+        [Route("Excluir/{Id}")]
+
+        public ActionResult Excluir(int? Id)
+        {
+            _planoContaService.Excluir((int)Id);
+            return RedirectToAction ("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

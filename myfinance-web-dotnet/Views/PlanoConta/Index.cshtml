@@ -2,7 +2,7 @@
   ViewData["Title"] = "Plano de Contas";
 }
 
-<h1>ViewData["Title"]</h1>
+<h1>@ViewData["Title"]</h1>
 <button type = "button" class="btn btn-block btn-primary" onclick="Novo()">Criar Item de Plano de Conta</button>
 <br>
 <br>
@@ -31,16 +31,16 @@
 <script>
   function Novo()
   {
-    windows.location.href = "../PlanoConta/Cadastrar";
+    window.location.href = "../PlanoConta/Cadastrar";
   }
 
   function Atualizar(id)
   {
-    windows.location.href = "../PlanoConta/Cadastrar/" + id;
+    window.location.href = "../PlanoConta/Cadastrar/" + id;
   }
 
   function Excluir(id)
   {
-    windows.location.href = "../PlanoConta/Excluir/" + id;
+    window.location.href = "../PlanoConta/Excluir/" + id;
   }
 </script>
